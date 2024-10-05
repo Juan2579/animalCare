@@ -9,6 +9,12 @@ export const createUser = async (user: any) => {
     const { data, error } = await supabase.auth.signUp({
       email: user.email,
       password: user.password,
+      options: {
+        data: {
+          role: "ADMIN",
+          name: "Juan David",
+        },
+      },
     });
 
     if (error) {
@@ -41,6 +47,34 @@ export const loginUser = async (user: any) => {
     });
 
     if (error) {
+      const isCredentialsError = error?.code === "invalid_credentials";
+      return {
+        error: isCredentialsError
+          ? "Datos de ingreso invalidos, por favor verificalos"
+          : error.message,
+        data: null,
+      };
+    }
+
+    return {
+      error: null,
+      data,
+    };
+  } catch {
+    return {
+      error: "Something went wrong",
+      data: null,
+    };
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const supabase = createClient();
+
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error) {
       console.log(error);
       return {
         error: error.message,
@@ -50,7 +84,7 @@ export const loginUser = async (user: any) => {
 
     return {
       error: null,
-      data,
+      data: data.user,
     };
   } catch {
     return {

@@ -14,14 +14,16 @@ export const LoginForm = () => {
 
   const handleCreateUser = async () => {
     enqueueSnackbar("Iniciando sesion...", { variant: "info" });
-    const { data, error } = await loginUser({ email, password });
+    const { data, error } = await createUser({ email, password });
 
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
       return;
     }
 
-    enqueueSnackbar("Sesion Iniciada", { variant: "success" });
+    enqueueSnackbar("Sesion iniciada, entrando al sistema...", {
+      variant: "success",
+    });
 
     router.push("/animales");
   };
