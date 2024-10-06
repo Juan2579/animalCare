@@ -25,7 +25,9 @@ export const LoginForm = () => {
       variant: "success",
     });
 
-    router.push("/animales");
+    setTimeout(() => {
+      router.push("/animales");
+    }, 1000);
   };
 
   return (

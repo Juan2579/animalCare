@@ -32,9 +32,8 @@ export default function CrearUsuarioPage() {
     });
 
     router.push("/usuarios");
+    router.refresh();
   };
-
-  console.log(user);
 
   return (
     <div className="flex flex-col gap-16 p-8">

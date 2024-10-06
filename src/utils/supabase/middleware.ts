@@ -59,5 +59,15 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  if (
+    user &&
+    user.user_metadata["role"] === "CUIDADOR" &&
+    ["/usuarios", "/usuarios/crearUsuario"].includes(request.nextUrl.pathname)
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/animales";
+    return NextResponse.redirect(url);
+  }
+
   return supabaseResponse;
 }
