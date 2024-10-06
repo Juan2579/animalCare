@@ -47,7 +47,12 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (user && !["/animales", "/usuarios"].includes(request.nextUrl.pathname)) {
+  if (
+    user &&
+    !["/animales", "/usuarios", "/usuarios/crearUsuario"].includes(
+      request.nextUrl.pathname
+    )
+  ) {
     // user is logged in, but trying to enter to unexisting pages
     const url = request.nextUrl.clone();
     url.pathname = "/animales";

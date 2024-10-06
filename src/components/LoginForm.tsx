@@ -1,6 +1,6 @@
 "use client";
 
-import { createUser, loginUser } from "@/actions/users";
+import { loginUser } from "@/actions/users";
 import { Button, TextField } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export const LoginForm = () => {
 
   const handleCreateUser = async () => {
     enqueueSnackbar("Iniciando sesion...", { variant: "info" });
-    const { data, error } = await createUser({ email, password });
+    const { data, error } = await loginUser({ email, password });
 
     if (error) {
       enqueueSnackbar(error, { variant: "error" });

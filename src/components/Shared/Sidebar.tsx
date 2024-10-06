@@ -10,7 +10,8 @@ import Image from "next/image";
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
 
-  const isActive = (currentPathname: string) => pathname === currentPathname;
+  const isActive = (currentPathname: string) =>
+    pathname.includes(currentPathname);
 
   return (
     <Box className="flex flex-col h-screen min-w-72 bg-[#6200E8] text-white">

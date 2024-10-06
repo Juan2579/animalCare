@@ -11,8 +11,10 @@ export const createUser = async (user: any) => {
       password: user.password,
       options: {
         data: {
-          role: "ADMIN",
-          name: "Juan David",
+          full_name: user.full_name,
+          username: user.username,
+          phone: user.phone,
+          role: "CUIDADOR",
         },
       },
     });
