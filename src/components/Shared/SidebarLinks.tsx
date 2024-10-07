@@ -8,7 +8,6 @@ import { createClient } from "@/utils/supabase/client";
 import { usePathname, useRouter } from "next/navigation";
 
 export const SidebarLinks = ({ user }) => {
-  console.log(user);
   const pathname = usePathname();
   const router = useRouter();
 

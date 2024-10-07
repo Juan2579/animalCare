@@ -49,9 +49,12 @@ export async function updateSession(request: NextRequest) {
 
   if (
     user &&
-    !["/animales", "/usuarios", "/usuarios/crearUsuario"].includes(
-      request.nextUrl.pathname
-    )
+    ![
+      "/animales",
+      "/animales/crearAnimal",
+      "/usuarios",
+      "/usuarios/crearUsuario",
+    ].includes(request.nextUrl.pathname)
   ) {
     // user is logged in, but trying to enter to unexisting pages
     const url = request.nextUrl.clone();
