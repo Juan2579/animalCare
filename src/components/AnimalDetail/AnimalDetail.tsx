@@ -82,8 +82,8 @@ export const AnimalDetail = ({ animal, setAnimal, users }) => {
         className="mb-4 col-span-3"
       >
         <option value=""></option>
-        <option value="Sano">Buen estado</option>
-        <option value="Enfermo">Mal estado</option>
+        <option value="Buen estado">Buen estado</option>
+        <option value="Mal estado">Mal estado</option>
       </TextField>
 
       <Autocomplete

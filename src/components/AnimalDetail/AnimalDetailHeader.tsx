@@ -3,10 +3,12 @@
 import { Button } from "@mui/material";
 import Link from "next/link";
 
-export const AnimalDetailHeader = ({ onSubmit }) => {
+export const AnimalDetailHeader = ({ animal, onSubmit }) => {
   return (
     <div className="w-full flex items-center justify-between">
-      <h1 className="text-3xl font-bold">Crear Animal</h1>
+      <h1 className="text-3xl font-bold">
+        {animal?.id ? "Editar Animal" : "Crear animal"}
+      </h1>
       <div className="flex gap-4">
         <Button
           onClick={onSubmit}
@@ -14,7 +16,7 @@ export const AnimalDetailHeader = ({ onSubmit }) => {
           color="primary"
           size="large"
         >
-          Crear
+          {animal?.id ? "Editar" : "Crear"}
         </Button>
         <Link href="/animales">
           <Button variant="contained" color="error" size="large">
