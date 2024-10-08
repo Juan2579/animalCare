@@ -1,6 +1,6 @@
 "use client";
 
-import { createUser } from "@/actions/users";
+import { createUser, UserType } from "@/actions/users";
 import { UserDetail } from "@/components/UserDetail/UserDetail";
 import { UserDetailHeader } from "@/components/UserDetail/UserDetailHeader";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export default function CrearUsuarioPage() {
   const router = useRouter();
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserType>({
     full_name: "",
     username: "",
     email: "",

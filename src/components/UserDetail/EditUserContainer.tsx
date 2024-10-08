@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { UserDetailHeader } from "./UserDetailHeader";
-import { updateUser } from "@/actions/users";
+import { updateUser, UserType } from "@/actions/users";
 import { UserDetail } from "./UserDetail";
 
-export const EditUserContainer = ({ user }) => {
+export const EditUserContainer = ({ user }: { user: UserType }) => {
   const router = useRouter();
   const [userState, setUserState] = useState(user);
 

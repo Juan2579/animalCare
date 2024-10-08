@@ -17,7 +17,7 @@ const Sidebar = async () => {
         <Image src="/images/fullLogo.png" alt="Logo" width={210} height={120} />
       </div>
 
-      <SidebarLinks user={user?.user_metadata} />
+      <SidebarLinks user={user} />
     </Box>
   );
 };

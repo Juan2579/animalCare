@@ -25,6 +25,17 @@ export interface LoginUser {
   password: string;
 }
 
+export interface SessionUser {
+  id?: string;
+  email?: string;
+  user_metadata?: {
+    full_name?: string;
+    username?: string;
+    phone?: string;
+    role?: string;
+  };
+}
+
 export const createUser = async (user: UserType) => {
   const cookieStore = cookies();
 

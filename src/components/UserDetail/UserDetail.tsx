@@ -1,5 +1,6 @@
 "use client";
 
+import { UserType } from "@/actions/users";
 import { TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useEffect } from "react";
@@ -20,7 +21,13 @@ const validationSchema = Yup.object({
     .min(6, "La contraseña debe tener al menos 6 caracteres"),
 });
 
-export const UserDetail = ({ user, setUser }) => {
+export const UserDetail = ({
+  user,
+  setUser,
+}: {
+  user: UserType;
+  setUser: (user: UserType) => void;
+}) => {
   const formik = useFormik({
     initialValues: user || {
       full_name: "",

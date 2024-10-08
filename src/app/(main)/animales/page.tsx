@@ -7,13 +7,15 @@ import { redirect } from "next/navigation";
 export default async function AnimalesPage() {
   const { data: user, error: userError } = await getUser();
 
-  if (userError) {
+  if (userError && !user) {
     redirect("/sign-in");
   }
 
-  const { data: animals, error: animalsError } = await getAllAnimals(user);
+  const { data: animals, error: animalsError } = await getAllAnimals({
+    id: user?.id,
+  });
 
-  if (animalsError) {
+  if (animalsError && !animals) {
     return;
   }
 

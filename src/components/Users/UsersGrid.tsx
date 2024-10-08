@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useRouter } from "next/navigation";
 import { UserType } from "@/actions/users";
 
-const UsersGrid = ({ users }: { users: UserType[] }) => {
+const UsersGrid = ({ users }: { users: UserType[] | null }) => {
   const router = useRouter();
 
   const columns: GridColDef[] = [
@@ -38,7 +38,7 @@ const UsersGrid = ({ users }: { users: UserType[] }) => {
   return (
     <div className="h-[400px] w-full">
       <DataGrid
-        rows={users}
+        rows={users as []}
         columns={columns}
         disableRowSelectionOnClick
         disableColumnMenu

@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { UserType } from "./users";
+import { SessionUser } from "./users";
 
 export interface animalType {
   id?: string;
@@ -9,7 +9,7 @@ export interface animalType {
   specie: string;
   habitat: string;
   status: string;
-  user_id: string;
+  user_id?: string;
 }
 
 export const createAnimal = async (animal: animalType) => {
@@ -34,7 +34,7 @@ export const createAnimal = async (animal: animalType) => {
   }
 };
 
-export const getAllAnimals = async (user: UserType) => {
+export const getAllAnimals = async (user: SessionUser) => {
   try {
     const supabase = createClient();
 

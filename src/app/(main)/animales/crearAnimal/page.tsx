@@ -1,6 +1,6 @@
 "use client";
 
-import { createAnimal } from "@/actions/animals";
+import { animalType, createAnimal } from "@/actions/animals";
 import { getAllUsers } from "@/actions/users";
 import { AnimalDetail } from "@/components/AnimalDetail/AnimalDetail";
 import { AnimalDetailHeader } from "@/components/AnimalDetail/AnimalDetailHeader";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 export default function CrearAnimalPage() {
   const router = useRouter();
-  const [animal, setAnimal] = useState({
+  const [animal, setAnimal] = useState<animalType>({
     name: "",
     specie: "",
     habitat: "",

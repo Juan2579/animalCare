@@ -6,7 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function AnimalPage({ params }) {
+export default async function AnimalPage({
+  params,
+}: {
+  params: { animalId: string };
+}) {
   const { data: user, error: userError } = await getUser();
 
   if (userError) {

@@ -6,8 +6,9 @@ import { Home, People, Assessment, ExitToApp } from "@mui/icons-material";
 import { enqueueSnackbar } from "notistack";
 import { createClient } from "@/utils/supabase/client";
 import { usePathname, useRouter } from "next/navigation";
+import { SessionUser } from "@/actions/users";
 
-export const SidebarLinks = ({ user }) => {
+export const SidebarLinks = ({ user }: { user: SessionUser | null }) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -50,7 +51,7 @@ export const SidebarLinks = ({ user }) => {
         <p className="font-bold">Lista de Animales</p>
       </Link>
 
-      {user.role === "ADMIN" && (
+      {user?.user_metadata?.role === "ADMIN" && (
         <Link
           className={`flex items-center rounded-lg p-3 pl-4 ${
             isActive("/usuarios")

@@ -17,14 +17,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { animalType, deleteAnimalById } from "@/actions/animals";
-import { UserType } from "@/actions/users";
+import { SessionUser } from "@/actions/users";
 
 const AnimalsGrid = ({
   animals,
   user,
 }: {
-  animals: animalType[];
-  user: UserType;
+  animals: animalType[] | undefined;
+  user: SessionUser | null;
 }) => {
   const router = useRouter();
 
@@ -77,7 +77,7 @@ const AnimalsGrid = ({
               <EditIcon />
             </IconButton>
           </Tooltip>
-          {user.user_metadata?.role === "ADMIN" && (
+          {user?.user_metadata?.role === "ADMIN" && (
             <Tooltip title="Eliminar Animal">
               <IconButton
                 color="error"

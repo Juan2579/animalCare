@@ -1,5 +1,7 @@
 "use client";
 
+import { animalType } from "@/actions/animals";
+import { SessionUser, UserType } from "@/actions/users";
 import { Autocomplete, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useEffect } from "react";
@@ -18,7 +20,18 @@ const validationSchema = Yup.object({
   user_id: Yup.string().required("El cuidador asignado es obligatorio"),
 });
 
-export const AnimalDetail = ({ animal, setAnimal, users, user }) => {
+export const AnimalDetail = ({
+  animal,
+  setAnimal,
+  users,
+  user,
+}: {
+  animal: animalType;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  setAnimal: (animal: animalType) => void;
+  users: UserType[] | null;
+  user: SessionUser | null;
+}) => {
   const formik = useFormik({
     initialValues: animal || {
       name: "",
@@ -88,12 +101,12 @@ export const AnimalDetail = ({ animal, setAnimal, users, user }) => {
 
       {user?.user_metadata?.role === "ADMIN" && (
         <Autocomplete
-          loading={users.length === 0}
+          loading={users?.length === 0}
           loadingText="Cargando cuidadores..."
-          options={users}
+          options={users as []}
           getOptionLabel={(option) => option?.full_name}
           value={
-            users.find(
+            users?.find(
               (userOption) => userOption.id === formik.values.user_id
             ) || null
           }

@@ -5,11 +5,20 @@ import { useState } from "react";
 import { AnimalDetailHeader } from "./AnimalDetailHeader";
 import { AnimalDetail } from "./AnimalDetail";
 import { enqueueSnackbar } from "notistack";
-import { updateAnimal } from "@/actions/animals";
+import { animalType, updateAnimal } from "@/actions/animals";
+import { SessionUser, UserType } from "@/actions/users";
 
-export const EditAnimalContainer = ({ animal, users, user }) => {
+export const EditAnimalContainer = ({
+  animal,
+  users,
+  user,
+}: {
+  animal: animalType;
+  users: UserType[] | null;
+  user: SessionUser | null;
+}) => {
   const router = useRouter();
-  const [animalState, setAnimalState] = useState(animal);
+  const [animalState, setAnimalState] = useState<animalType>(animal);
 
   const handleUpdateAnimal = async () => {
     enqueueSnackbar("Actualizando animal...", { variant: "info" });

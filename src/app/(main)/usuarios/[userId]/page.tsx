@@ -4,7 +4,11 @@ import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function UsuarioPage({ params }) {
+export default async function UsuarioPage({
+  params,
+}: {
+  params: { userId: string };
+}) {
   const { data: user, error: userError } = await getUserById(params.userId);
 
   if (!user) {
