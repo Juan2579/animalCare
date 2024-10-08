@@ -4,7 +4,28 @@ import { createClient } from "@/utils/supabase/server";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-export const createUser = async (user: any) => {
+export interface UserType {
+  id?: string;
+  full_name: string;
+  username: string;
+  phone: string;
+  email: string;
+  password?: string;
+  role?: string;
+  user_metadata?: {
+    full_name: string;
+    username: string;
+    phone: string;
+    role: string;
+  };
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+export const createUser = async (user: UserType) => {
   const cookieStore = cookies();
 
   try {
@@ -62,7 +83,7 @@ export const createUser = async (user: any) => {
   }
 };
 
-export const loginUser = async (user: any) => {
+export const loginUser = async (user: LoginUser) => {
   try {
     const supabase = createClient();
 
@@ -193,7 +214,7 @@ export const getUserById = async (id: string) => {
   }
 };
 
-export const updateUser = async (user: any) => {
+export const updateUser = async (user: UserType) => {
   const cookieStore = cookies();
 
   try {
@@ -220,7 +241,7 @@ export const updateUser = async (user: any) => {
       }
     );
 
-    const { data, error } = await supabase.auth.admin.updateUserById(user.id, {
+    const { data, error } = await supabase.auth.admin.updateUserById(user.id!, {
       user_metadata: {
         full_name: user.full_name,
         username: user.username,
@@ -243,9 +264,9 @@ export const updateUser = async (user: any) => {
       })
       .eq("id", user.id);
 
-    if (error) {
+    if (error || error2) {
       return {
-        error: error.message,
+        error: error?.code || error2?.message,
         data: null,
       };
     }
@@ -253,6 +274,7 @@ export const updateUser = async (user: any) => {
     return {
       error: null,
       data,
+      data2,
     };
   } catch {
     return {

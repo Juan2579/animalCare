@@ -20,7 +20,7 @@ export default function CrearUsuarioPage() {
 
   const handleCreateUser = async () => {
     enqueueSnackbar("Creando usuario...", { variant: "info" });
-    const { data, error } = await createUser(user);
+    const { error } = await createUser(user);
 
     if (error) {
       enqueueSnackbar(error, { variant: "error" });

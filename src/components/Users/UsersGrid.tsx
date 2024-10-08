@@ -3,12 +3,10 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/navigation";
+import { UserType } from "@/actions/users";
 
-const handleDelete = (row: any) => {};
-
-const UsersGrid = ({ users }) => {
+const UsersGrid = ({ users }: { users: UserType[] }) => {
   const router = useRouter();
 
   const columns: GridColDef[] = [
@@ -28,17 +26,12 @@ const UsersGrid = ({ users }) => {
               <EditIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Eliminar Usuario">
-            <IconButton color="error" onClick={() => handleDelete(params.row)}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
         </div>
       ),
     },
   ];
 
-  const handleEdit = (row: any) => {
+  const handleEdit = (row: UserType) => {
     router.push(`/usuarios/${row.id}`);
   };
 

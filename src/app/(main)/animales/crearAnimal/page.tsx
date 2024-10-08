@@ -44,7 +44,7 @@ export default function CrearAnimalPage() {
       return;
     }
 
-    setUsers(data);
+    setUsers(data as []);
   };
 
   useEffect(() => {

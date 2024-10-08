@@ -14,7 +14,7 @@ export const LoginForm = () => {
 
   const handleCreateUser = async () => {
     enqueueSnackbar("Iniciando sesion...", { variant: "info" });
-    const { data, error } = await loginUser({ email, password });
+    const { error } = await loginUser({ email, password });
 
     if (error) {
       enqueueSnackbar(error, { variant: "error" });

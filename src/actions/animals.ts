@@ -1,8 +1,18 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { UserType } from "./users";
 
-export const createAnimal = async (animal: any) => {
+export interface animalType {
+  id?: string;
+  name: string;
+  specie: string;
+  habitat: string;
+  status: string;
+  user_id: string;
+}
+
+export const createAnimal = async (animal: animalType) => {
   try {
     const supabase = createClient();
 
@@ -24,7 +34,7 @@ export const createAnimal = async (animal: any) => {
   }
 };
 
-export const getAllAnimals = async (user) => {
+export const getAllAnimals = async (user: UserType) => {
   try {
     const supabase = createClient();
 
@@ -39,7 +49,7 @@ export const getAllAnimals = async (user) => {
         user: profiles (*)
       `);
 
-    if (user_metadata.role === "CUIDADOR") {
+    if (user_metadata?.role === "CUIDADOR") {
       query = query.eq("user_id", id);
     }
 
@@ -99,7 +109,7 @@ export const getAnimalById = async (id: string) => {
   }
 };
 
-export const updateAnimal = async (animal: any) => {
+export const updateAnimal = async (animal: animalType) => {
   try {
     const supabase = createClient();
 

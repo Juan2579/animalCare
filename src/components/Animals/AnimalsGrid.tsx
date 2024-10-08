@@ -16,22 +16,43 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
-import { deleteAnimalById } from "@/actions/animals";
+import { animalType, deleteAnimalById } from "@/actions/animals";
+import { UserType } from "@/actions/users";
 
-const AnimalsGrid = ({ animals, user }) => {
+const AnimalsGrid = ({
+  animals,
+  user,
+}: {
+  animals: animalType[];
+  user: UserType;
+}) => {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
-  const [animalToDelete, setAnimalToDelete] = useState(null);
+  const [animalToDelete, setAnimalToDelete] = useState<animalType>({
+    id: "",
+    name: "",
+    specie: "",
+    habitat: "",
+    user_id: "",
+    status: "",
+  });
 
-  const handleDelete = (animal) => {
+  const handleDelete = (animal: animalType) => {
     setOpen(true);
     setAnimalToDelete(animal);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setAnimalToDelete(null);
+    setAnimalToDelete({
+      id: "",
+      name: "",
+      specie: "",
+      habitat: "",
+      user_id: "",
+      status: "",
+    });
   };
 
   const columns: GridColDef[] = [
@@ -56,7 +77,7 @@ const AnimalsGrid = ({ animals, user }) => {
               <EditIcon />
             </IconButton>
           </Tooltip>
-          {user.user_metadata.role === "ADMIN" && (
+          {user.user_metadata?.role === "ADMIN" && (
             <Tooltip title="Eliminar Animal">
               <IconButton
                 color="error"
@@ -74,7 +95,7 @@ const AnimalsGrid = ({ animals, user }) => {
   const handleDeleteAnimal = async () => {
     try {
       // Lógica para borrar el animal de la base de datos
-      const { error } = await deleteAnimalById(animalToDelete.id); // Asume que tienes esta función implementada
+      const { error } = await deleteAnimalById(animalToDelete.id!); // Asume que tienes esta función implementada
 
       if (error) {
         enqueueSnackbar(error, { variant: "error" });
@@ -90,7 +111,7 @@ const AnimalsGrid = ({ animals, user }) => {
     }
   };
 
-  const handleEdit = (row: any) => {
+  const handleEdit = (row: animalType) => {
     router.push(`/animales/${row.id}`);
   };
 
