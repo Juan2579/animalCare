@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
   user_id: Yup.string().required("El cuidador asignado es obligatorio"),
 });
 
-export const AnimalDetail = ({ animal, setAnimal, users }) => {
+export const AnimalDetail = ({ animal, setAnimal, users, user }) => {
   const formik = useFormik({
     initialValues: animal || {
       name: "",
@@ -86,32 +86,38 @@ export const AnimalDetail = ({ animal, setAnimal, users }) => {
         <option value="Mal estado">Mal estado</option>
       </TextField>
 
-      <Autocomplete
-        loading={users.length === 0}
-        loadingText="Cargando cuidadores..."
-        options={users}
-        getOptionLabel={(option) => option?.full_name}
-        value={users.find((user) => user.id === formik.values.user_id) || null}
-        onChange={(event, newValue) => {
-          if (!newValue) {
-            formik.setFieldValue("user_id", "");
-            return;
+      {user?.user_metadata?.role === "ADMIN" && (
+        <Autocomplete
+          loading={users.length === 0}
+          loadingText="Cargando cuidadores..."
+          options={users}
+          getOptionLabel={(option) => option?.full_name}
+          value={
+            users.find(
+              (userOption) => userOption.id === formik.values.user_id
+            ) || null
           }
-          formik.setFieldValue("user_id", newValue.id);
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Cuidador"
-            error={!!formik.errors["user_id"]}
-            helperText={formik.errors.user_id}
-            className="mb-4 col-span-3"
-          />
-        )}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        noOptionsText="No hay cuidadores disponibles"
-        className="w-full mb-4 col-span-3"
-      />
+          onChange={(event, newValue) => {
+            if (!newValue) {
+              formik.setFieldValue("user_id", "");
+              return;
+            }
+            formik.setFieldValue("user_id", newValue.id);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Cuidador"
+              error={!!formik.errors["user_id"]}
+              helperText={formik.errors.user_id}
+              className="mb-4 col-span-3"
+            />
+          )}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
+          noOptionsText="No hay cuidadores disponibles"
+          className="w-full mb-4 col-span-3"
+        />
+      )}
     </form>
   );
 };

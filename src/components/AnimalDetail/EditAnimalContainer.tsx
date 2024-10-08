@@ -7,13 +7,12 @@ import { AnimalDetail } from "./AnimalDetail";
 import { enqueueSnackbar } from "notistack";
 import { updateAnimal } from "@/actions/animals";
 
-export const EditAnimalContainer = ({ animal, users }) => {
+export const EditAnimalContainer = ({ animal, users, user }) => {
   const router = useRouter();
   const [animalState, setAnimalState] = useState(animal);
 
   const handleUpdateAnimal = async () => {
     enqueueSnackbar("Actualizando animal...", { variant: "info" });
-    console.log("animalState", animalState);
     const { error } = await updateAnimal(animalState);
 
     if (error) {
@@ -36,6 +35,7 @@ export const EditAnimalContainer = ({ animal, users }) => {
         animal={animalState}
         setAnimal={setAnimalState}
         users={users}
+        user={user}
       />
     </>
   );

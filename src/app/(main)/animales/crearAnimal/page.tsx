@@ -54,7 +54,12 @@ export default function CrearAnimalPage() {
   return (
     <div className="flex flex-col gap-16 p-8">
       <AnimalDetailHeader onSubmit={handleCreateAnimal} />
-      <AnimalDetail animal={animal} setAnimal={setAnimal} users={users} />
+      <AnimalDetail
+        animal={animal}
+        setAnimal={setAnimal}
+        users={users}
+        user={{ user_metadata: { role: "ADMIN" } }}
+      />
     </div>
   );
 }

@@ -9,7 +9,6 @@ export const createAnimal = async (animal: any) => {
     const { error } = await supabase.from("animals").insert(animal);
 
     if (error) {
-      console.log(error);
       return {
         error: error.message,
       };
@@ -25,21 +24,28 @@ export const createAnimal = async (animal: any) => {
   }
 };
 
-export const getAllAnimals = async () => {
+export const getAllAnimals = async (user) => {
   try {
     const supabase = createClient();
 
-    const { data, error } = await supabase.from("animals").select(`
-      id,
-      name,
-      specie,
-      habitat,
-      status,
-      user: profiles (*)
-    `);
+    const { user_metadata, id } = user;
+
+    let query = supabase.from("animals").select(`
+        id,
+        name,
+        specie,
+        habitat,
+        status,
+        user: profiles (*)
+      `);
+
+    if (user_metadata.role === "CUIDADOR") {
+      query = query.eq("user_id", id);
+    }
+
+    const { data, error } = await query;
 
     if (error) {
-      console.log(error);
       return {
         error: error.message,
       };
@@ -76,7 +82,6 @@ export const getAnimalById = async (id: string) => {
       .single();
 
     if (error) {
-      console.log(error);
       return {
         error: error.message,
         data: null,
@@ -104,7 +109,28 @@ export const updateAnimal = async (animal: any) => {
       .eq("id", animal.id);
 
     if (error) {
-      console.log(error);
+      return {
+        error: error.message,
+      };
+    }
+
+    return {
+      error: null,
+    };
+  } catch {
+    return {
+      error: "Something went wrong",
+    };
+  }
+};
+
+export const deleteAnimalById = async (id: string) => {
+  try {
+    const supabase = createClient();
+
+    const { error } = await supabase.from("animals").delete().eq("id", id);
+
+    if (error) {
       return {
         error: error.message,
       };

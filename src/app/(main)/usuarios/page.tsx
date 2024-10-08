@@ -6,7 +6,6 @@ export default async function UsuariosPage() {
   const { data, error } = await getAllUsers();
 
   if (error) {
-    console.log(error);
     return;
   }
 

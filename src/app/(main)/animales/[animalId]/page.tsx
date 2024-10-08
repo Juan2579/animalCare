@@ -63,7 +63,7 @@ export default async function AnimalPage({ params }) {
 
   return (
     <div className="flex flex-col gap-16 p-8">
-      <EditAnimalContainer animal={animal} users={users} />
+      <EditAnimalContainer animal={animal} users={users} user={user} />
     </div>
   );
 }

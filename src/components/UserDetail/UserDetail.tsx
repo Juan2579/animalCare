@@ -83,16 +83,18 @@ export const UserDetail = ({ user, setUser }) => {
         className="mb-4"
       />
 
-      <TextField
-        label="Contraseña"
-        name="password"
-        type="password"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        error={!!formik.errors["password"]}
-        helperText={formik.errors.password}
-        className="mb-4"
-      />
+      {!user.id && (
+        <TextField
+          label="Contraseña"
+          name="password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={!!formik.errors["password"]}
+          helperText={formik.errors.password}
+          className="mb-4"
+        />
+      )}
     </form>
   );
 };
