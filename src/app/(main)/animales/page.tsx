@@ -13,6 +13,12 @@ export default async function AnimalesPage() {
 
   const { data: animals, error: animalsError } = await getAllAnimals({
     id: user?.id,
+    user_metadata: {
+      full_name: user?.user_metadata.full_name,
+      username: user?.user_metadata.username,
+      phone: user?.user_metadata.phone,
+      role: user?.user_metadata.role,
+    },
   });
 
   if (animalsError && !animals) {
